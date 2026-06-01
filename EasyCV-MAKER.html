@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="main-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyCV Maker - one click make your professional CV </title>
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" id="bootstrap-rtl">
+    <!-- خطوط ويب احترافية متصلة تماماً للعربية والإنجليزية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* تعريف متغيرات الألوان الـ 10 الاحترافية */
+        :root {
+            --primary-color: #0056b3;
+            --text-color: #2b2b2b;
+            --bg-accent: #f8fafc;
+            --border-style: solid;
+            --border-weight: 1px;
+        }
+
+        body { 
+            background-color: #f1f5f9; 
+            font-family: 'Tajawal', 'Inter', sans-serif; 
+            color: #1e293b; 
+        }
+        .editor-section { background: #ffffff; border-radius: 14px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); height: 95vh; overflow-y: auto; }
+        .preview-section { height: 95vh; overflow-y: auto; padding: 10px; }
+        
+        /* ورقة A4 حقيقية متوافقة مع معايير ATS العالمية */
+        .a4-page { 
+            width: 210mm; 
+            min-height: 297mm; 
+            background: #ffffff; 
+            padding: 20mm; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            margin: 0 auto; 
+            box-sizing: border-box; 
+            transition: all 0.3s ease;
+        }
+        
+        .cv-text { white-space: pre-line; word-wrap: break-word; font-size: 13px; line-height: 1.6; color: var(--text-color); }
+        .cv-section-title { font-weight: 700; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; font-size: 15px; text-transform: uppercase; }
+        .experience-item { margin-bottom: 15px; }
+
+        /* ==================== أنماط الهياكل الأربعة (4 Structural Layouts) ==================== */
+        
+        /* 1. الهيكل الكلاسيكي (Classic Layout) */
+        .struct-classic .cv-header { border-bottom: 3px var(--border-style) var(--primary-color); padding-bottom: 12px; margin-bottom: 18px; }
+        .struct-classic h1 { color: var(--primary-color); font-weight: 800; font-size: 26px; }
+        .struct-classic .cv-section-title { color: var(--primary-color); border-bottom: var(--border-weight) solid #cbd5e1; }
+
+        /* 2. الهيكل العصري (Modern Layout) */
+        .struct-modern .cv-header { background: var(--primary-color); color: #ffffff !important; padding: 25px; margin-bottom: 22px; border-radius: 6px; }
+        .struct-modern .cv-header * { color: #ffffff !important; }
+        .struct-modern h1 { font-weight: 700; font-size: 28px; }
+        .struct-modern .cv-section-title { color: var(--primary-color); border-inline-start: 5px solid var(--primary-color); padding-inline-start: 10px; }
+
+        /* 3. الهيكل التنفيذي (Executive Layout) */
+        .struct-executive .cv-header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; }
+        .struct-executive h1 { color: var(--primary-color); font-weight: 800; letter-spacing: 0.5px; }
+        .struct-executive .cv-section-title { color: #ffffff; background: var(--primary-color); padding: 5px 12px; border-radius: 4px; }
+
+        /* 4. الهيكل الأكاديمي (Academic Layout) */
+        .struct-academic { font-family: 'Times New Roman', 'Tajawal', serif; }
+        .struct-academic .cv-header { text-align: center; border-bottom: 2px double var(--primary-color); padding-bottom: 8px; margin-bottom: 20px; }
+        .struct-academic h1 { color: #000000; font-weight: 700; }
+        .struct-academic .cv-section-title { text-align: center; color: var(--primary-color); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+
+        /* ==================== إعدادات المطبوعات ==================== */
+        @media print {
+            body * { visibility: hidden; background: #ffffff !important; }
+            #cv-sheet, #cv-sheet * { visibility: visible; }
+            #cv-sheet { 
+                position: absolute; 
+                left: 0; 
+                top: 0; 
+                width: 210mm; 
+                min-height: 297mm; 
+                padding: 15mm !important; 
+                box-shadow: none !important;
+                margin: 0 !important;
+            }
+            .editor-section, .btn, select, label { display: none !important; }
+            @page { size: A4; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid py-3">
+    <div class="row g-3">
+        
+        <!-- لوحة التحكم والمدخلات -->
+        <div class="col-xl-5 col-lg-6 d-print-none">
+            <div class="editor-section">
+                
+                <!-- التبديل اللغوي -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <span class="fw-bold text-muted">Language / اللغة:</span>
+                    <button class="btn btn-outline-primary btn-sm fw-bold" id="lang-toggler" onclick="toggleLanguage()">Switch to English</button>
+                </div>
+
+                <!-- مصفوفة توليد الـ 40 نموذجاً -->
+                <div class="card p-3 mb-3 border-0 bg-light shadow-sm">
+                    <h5 class="fw-bold text-success mb-3">🎨 محرك القوالب الـ 40 الذكي (ATS Approved)</h5>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">1. الهيكل والنمط المعماري:</label>
+                            <select id="select-layout" class="form-select form-select-sm" onchange="updateEngine()">
+                                <option value="classic">الهيكل الكلاسيكي المنظم</option>
+                                <option value="modern">الهيكل العصري الجريء</option>
+                                <option value="executive">الهيكل التنفيذي الفخم</option>
+                                <option value="academic">الهيكل الأكاديمي والتقني</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">2. لوحة الألوان الاحترافية:</label>
+                            <select id="select-color" class="form-select form-select-sm" onchange="updateEngine()">
+                                <option value="#0f172a">1. الأسود الفحمي (Charcoal)</option>
+                                <option value="#1e3a8a">2. الكحلي الملكي (Royal Blue)</option>
+                                <option value="#047857">3. الأخضر الزمردي (Emerald)</option>
+                                <option value="#7c2d12">4. البرونزي الدافئ (Bronze)</option>
+                                <option value="#581c87">5. البنفسجي الإبداعي (Purple)</option>
+                                <option value="#4338ca">6. النيلي المؤسسي (Indigo)</option>
+                                <option value="#be123c">7. العنابي الفاخر (Burgundy)</option>
+                                <option value="#0369a1">8. الأزرق السماوي الهادئ (Sky)</option>
+                                <option value="#334155">9. الرمادي الإستراتيجي (Slate)</option>
+                                <option value="#15803d">10. الأخضر الرقمي (Forest)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-center small text-muted">
+                        مزيج الهياكل والألوان يمنحك <span class="badge bg-success">40 تصميماً مختلفاً</span> متوافقاً تماماً مع المعايير الأمنية وأنظمة الفرز.
+                    </div>
+                </div>
+                
+                <!-- التفاصيل الشخصية -->
+                <div class="card p-3 mb-3 border-0 bg-light">
+                    <h5 class="fw-bold text-secondary mb-3" id="lbl-personal">👤 التفاصيل الشخصية</h5>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label small" id="lbl-name">الاسم الكامل</label>
+                            <input type="text" id="in-name" class="form-control form-control-sm" placeholder="أدخل اسمك الكامل" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" id="lbl-title">المسمى الوظيفي</label>
+                            <input type="text" id="in-title" class="form-control form-control-sm" placeholder="مثال: مهندس برمجيات" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small" id="lbl-email">البريد الإلكتروني</label>
+                            <input type="email" id="in-email" class="form-control form-control-sm" placeholder="name@example.com" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small" id="lbl-phone">رقم الهاتف</label>
+                            <input type="text" id="in-phone" class="form-control form-control-sm" placeholder="07xxxxxxxx" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small" id="lbl-location">العنوان</label>
+                            <input type="text" id="in-location" class="form-control form-control-sm" placeholder="المدينة، الدولة" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small text-muted" id="lbl-dob">تاريخ الميلاد (اختياري)</label>
+                            <input type="text" id="in-dob" class="form-control form-control-sm" placeholder="YYYY/MM/DD" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small text-muted" id="lbl-marital">الحالة الاجتماعية (اختياري)</label>
+                            <input type="text" id="in-marital" class="form-control form-control-sm" placeholder="أعزب / متزوج" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small text-muted" id="lbl-gender">الجنس (اختياري)</label>
+                            <input type="text" id="in-gender" class="form-control form-control-sm" placeholder="ذكر / أنثى" oninput="renderCV()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التعليم الأكاديمي -->
+                <div class="card p-3 mb-3 border-0 bg-light">
+                    <h5 class="fw-bold text-secondary mb-3" id="lbl-education-title">🎓 التعليم الأكاديمي</h5>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label small" id="lbl-degree">الدرجة العلمية والتخصص</label>
+                            <input type="text" id="in-degree" class="form-control form-control-sm" placeholder="بكالوريوس هندسة حاسوب" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" id="lbl-univ">اسم الجامعة</label>
+                            <input type="text" id="in-univ" class="form-control form-control-sm" placeholder="أدخل اسم الجامعة" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" id="lbl-average">المعدل</label>
+                            <input type="text" id="in-average" class="form-control form-control-sm" placeholder="3.5 / 4.00" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small" id="lbl-grad-year">سنة التخرج</label>
+                            <input type="text" id="in-grad-year" class="form-control form-control-sm" placeholder="2022" oninput="renderCV()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الملخص المهني -->
+                <div class="card p-3 mb-3 border-0 bg-light">
+                    <h5 class="fw-bold text-secondary mb-2" id="lbl-summary-title">📄 الملخص المهني</h5>
+                    <textarea id="in-summary" class="form-control form-control-sm" rows="3" placeholder="نبذة مختصرة عن إنجازاتك وخبراتك..." oninput="renderCV()"></textarea>
+                </div>
+
+                <!-- ديناميكية قسم الخبرات المهنية -->
+                <div class="card p-3 mb-3 border-0 bg-light">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="fw-bold text-secondary m-0" id="lbl-work-title">💼 الخبرة المهنية (اختياري)</h5>
+                        <button class="btn btn-primary btn-sm fw-bold" onclick="addExperienceField()">➕ إضافة خبرة جديدة</button>
+                    </div>
+                    <div id="experience-fields-container"></div>
+                </div>
+
+                <!-- المهارات والهوايات -->
+                <div class="card p-3 mb-3 border-0 bg-light">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold text-secondary mb-2" id="lbl-skills-title">🛠️ المهارات</h5>
+                            <textarea id="in-skills" class="form-control form-control-sm" rows="3" placeholder="• مهارة 1&#10;• مهارة 2" oninput="renderCV()"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold text-secondary mb-2" id="lbl-hobbies-title">🎯 الهوايات</h5>
+                            <textarea id="in-hobbies" class="form-control form-control-sm" rows="3" placeholder="• هواية 1&#10;• هواية 2" oninput="renderCV()"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الروابط الرقمية -->
+                <div class="card p-3 mb-4 border-0 bg-light">
+                    <h5 class="fw-bold text-secondary mb-3" id="lbl-social">🌐 الروابط الرقمية</h5>
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label small">LinkedIn</label>
+                            <input type="text" id="in-link1" class="form-control form-control-sm" placeholder="linkedin.com/in/username" oninput="renderCV()">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">GitHub</label>
+                            <input type="text" id="in-link2" class="form-control form-control-sm" placeholder="github.com/username" oninput="renderCV()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sticky-bottom shadow-sm bg-white p-2 border rounded">
+                    <button class="btn btn-success w-100 fw-bold py-2 shadow" id="btn-download" onclick="exportPDF()">📥 حفظ كـ PDF (نصوص متصلة وصافية لـ ATS)</button>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- شاشة المعاينة الحية المتوافقة مع الـ ATS -->
+        <div class="col-xl-7 col-lg-6 preview-section">
+            <div id="cv-sheet" class="a4-page struct-classic">
+                
+                <div class="cv-header">
+                    <h1 id="out-name" class="m-0"></h1>
+                    <h4 id="out-title" class="text-muted m-0 mt-1"></h4>
+                    
+                    <div class="row mt-3 small text-muted g-2">
+                        <div class="col-auto" id="div-email" style="display: none;">📧 <span id="out-email"></span></div>
+                        <div class="col-auto" id="div-phone" style="display: none;">📱 <span id="out-phone"></span></div>
+                        <div class="col-auto" id="div-location" style="display: none;">📍 <span id="out-location"></span></div>
+                    </div>
+                    
+                    <div class="row mt-1 small text-muted g-2 border-top pt-2" id="div-extra-fields" style="display: none;">
+                        <div class="col-auto" id="div-dob" style="display: none;">📅 <span id="out-dob"></span></div>
+                        <div class="col-auto" id="div-marital" style="display: none;">💍 <span id="out-marital"></span></div>
+                        <div class="col-auto" id="div-gender" style="display: none;">🧬 <span id="out-gender"></span></div>
+                    </div>
+                </div>
+
+                <div id="sect-summary" style="display: none;">
+                    <div class="cv-section-title" id="t-sect-summary">الملخص المهني</div>
+                    <div id="out-summary" class="cv-text"></div>
+                </div>
+
+                <div id="sect-education" style="display: none;">
+                    <div class="cv-section-title" id="t-sect-education">التعليم الأكاديمي</div>
+                    <div class="cv-text fw-bold" id="out-degree-univ"></div>
+                    <div class="text-muted small mt-1">
+                        <span id="div-average-display"></span> <span id="div-grad-display" class="mx-2"></span>
+                    </div>
+                </div>
+
+                <div id="sect-history" style="display: none;">
+                    <div class="cv-section-title" id="t-sect-history">الخبرة المهنية والتاريخ الوظيفي</div>
+                    <div id="out-history-container"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6" id="sect-skills" style="display: none;">
+                        <div class="cv-section-title" id="t-sect-skills">المهارات</div>
+                        <div id="out-skills" class="cv-text"></div>
+                    </div>
+                    <div class="col-6" id="sect-hobbies" style="display: none;">
+                        <div class="cv-section-title" id="t-sect-hobbies">الهوايات والاهتمامات</div>
+                        <div id="out-hobbies" class="cv-text"></div>
+                    </div>
+                </div>
+
+                <div id="sect-links" style="display: none;">
+                    <div class="cv-section-title" id="t-sect-links">الروابط والشبكات الرقمية</div>
+                    <div class="row small">
+                        <div class="col-6" id="div-link1" style="display: none;">🔗 <span id="out-link1"></span></div>
+                        <div class="col-6" id="div-link2" style="display: none;">🔗 <span id="out-link2"></span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let currentLang = 'ar';
+let experienceCount = 0;
+
+const dictionary = {
+    ar: {
+        personal: "👤 التفاصيل الشخصية", name: "الاسم الكامل", title: "المسمى الوظيفي", email: "البريد الإلكتروني", phone: "رقم الهاتف", location: "العنوان",
+        dob: "تاريخ الميلاد (اختياري)", marital: "الحالة الاجتماعية (اختياري)", gender: "الجنس (اختياري)",
+        educationTitle: "🎓 التعليم الأكاديمي", degree: "الدرجة العلمية والتخصص", univ: "اسم الجامعة", average: "المعدل", gradYear: "سنة التخرج",
+        summaryTitle: "📄 الملخص المهني", workTitle: "💼 الخبرة المهنية (اختياري)", skillsTitle: "🛠️ المهارات", hobbiesTitle: "🎯 الهوايات", social: "🌐 الروابط الرقمية",
+        download: "📥 حفظ كـ PDF (نصوص متصلة وصافية لـ ATS)", switchBtn: "Switch to English",
+        viewSummary: "الملخص المهني", viewHistory: "الخبرة المهنية والتاريخ الوظيفي", viewSkills: "المهارات", viewHobbies: "الهوايات والاهتمامات", viewLinks: "الروابط والشبكات الرقمية", viewEducation: "التعليم الأكاديمي",
+        lblDob: "تاريخ الميلاد: ", lblMarital: "الحالة الاجتماعية: ", lblGender: "الجنس: ", lblAvg: "المعدل: ", lblGrad: "سنة التخرج: ",
+        compName: "اسم الشركة", jobTitle: "المسمى الوظيفي", durationFrom: "الفترة من", durationTo: "الفترة إلى", acquiredSkills: "الخبرات والمهام المكتسبة", deleteBtn: "حذف",
+        connector: " في "
+    },
+    en: {
+        personal: "👤 Personal Details", name: "Full Name", title: "Job Title", email: "Email Address", phone: "Phone Number", location: "Location",
+        dob: "Date of Birth (Optional)", marital: "Marital Status (Optional)", gender: "Gender (Optional)",
+        educationTitle: "🎓 Education", degree: "Degree & Major", univ: "University Name", average: "Average / GPA", gradYear: "Graduation Year",
+        summaryTitle: "📄 Professional Summary", workTitle: "💼 Work History (Optional)", skillsTitle: "🛠️ Skills", hobbiesTitle: "🎯 Hobbies", social: "🌐 Digital Links",
+        download: "📥 Save as PDF (100% Pure Text for ATS)", switchBtn: "التحويل للغة العربية",
+        viewSummary: "Professional Summary", viewHistory: "Work History & Experience", viewSkills: "Skills", viewHobbies: "Hobbies & Interests", viewLinks: "Digital Networks & Links", viewEducation: "Education",
+        lblDob: "Date of Birth: ", lblMarital: "Marital Status: ", lblGender: "Gender: ", lblAvg: "GPA/Average: ", lblGrad: "Graduation Year: ",
+        compName: "Company Name", jobTitle: "Job Title", durationFrom: "From", durationTo: "To", acquiredSkills: "Acquired Skills & Responsibilities", deleteBtn: "Delete",
+        connector: " at "
+    }
+};
+
+function updateEngine() {
+    const layout = document.getElementById('select-layout').value;
+    const color = document.getElementById('select-color').value;
+    const cvSheet = document.getElementById('cv-sheet');
+    
+    // تحديث فئة الهيكل البنائي
+    cvSheet.className = "a4-page struct-" + layout;
+    
+    // زرع الألوان ديناميكياً داخل المتغيرات
+    document.documentElement.style.setProperty('--primary-color', color);
+}
+
+function addExperienceField() {
+    experienceCount++;
+    const container = document.getElementById('experience-fields-container');
+    const labels = dictionary[currentLang];
+    
+    const html = `
+        <div class="border p-2 rounded bg-white mb-2 position-relative target-exp-form" id="exp-form-${experienceCount}">
+            <button class="btn btn-danger btn-xs position-absolute top-0 end-0 m-1 py-0 px-1 small" style="font-size:11px;" onclick="removeExperienceField(${experienceCount})">${labels.deleteBtn}</button>
+            <div class="row g-1 mt-1">
+                <div class="col-md-6">
+                    <label class="form-label small mb-0" style="font-size:11px;">${labels.compName}</label>
+                    <input type="text" class="form-control form-control-sm exp-company" oninput="renderCV()">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small mb-0" style="font-size:11px;">${labels.jobTitle}</label>
+                    <input type="text" class="form-control form-control-sm exp-title" oninput="renderCV()">
+                </div>
+                <div class="col-6">
+                    <label class="form-label small mb-0" style="font-size:11px;">${labels.durationFrom}</label>
+                    <input type="text" class="form-control form-control-sm exp-from" oninput="renderCV()">
+                </div>
+                <div class="col-6">
+                    <label class="form-label small mb-0" style="font-size:11px;">${labels.durationTo}</label>
+                    <input type="text" class="form-control form-control-sm exp-to" oninput="renderCV()">
+                </div>
+                <div class="col-12">
+                    <label class="form-label small mb-0" style="font-size:11px;">${labels.acquiredSkills}</label>
+                    <textarea class="form-control form-control-sm exp-skills" rows="2" oninput="renderCV()"></textarea>
+                </div>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+    renderCV();
+}
+
+function removeExperienceField(id) {
+    const el = document.getElementById(`exp-form-${id}`);
+    if(el) el.remove();
+    renderCV();
+}
+
+function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    const htmlTag = document.getElementById('main-html');
+    const rtllink = document.getElementById('bootstrap-rtl');
+    
+    if (currentLang === 'en') {
+        htmlTag.setAttribute('dir', 'ltr');
+        htmlTag.setAttribute('lang', 'en');
+        rtllink.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css";
+        document.getElementById('cv-sheet').style.direction = "ltr";
+    } else {
+        htmlTag.setAttribute('dir', 'rtl');
+        htmlTag.setAttribute('lang', 'ar');
+        rtllink.href = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css";
+        document.getElementById('cv-sheet').style.direction = "rtl";
+    }
+    
+    const langData = dictionary[currentLang];
+    document.getElementById('lbl-personal').textContent = langData.personal;
+    document.getElementById('lbl-name').textContent = langData.name;
+    document.getElementById('lbl-title').textContent = langData.title;
+    document.getElementById('lbl-email').textContent = langData.email;
+    document.getElementById('lbl-phone').textContent = langData.phone;
+    document.getElementById('lbl-location').textContent = langData.location;
+    document.getElementById('lbl-dob').textContent = langData.dob;
+    document.getElementById('lbl-marital').textContent = langData.marital;
+    document.getElementById('lbl-gender').textContent = langData.gender;
+    
+    document.getElementById('lbl-education-title').textContent = langData.educationTitle;
+    document.getElementById('lbl-degree').textContent = langData.degree;
+    document.getElementById('lbl-univ').textContent = langData.univ;
+    document.getElementById('lbl-average').textContent = langData.average;
+    document.getElementById('lbl-grad-year').textContent = langData.gradYear;
+
+    document.getElementById('lbl-summary-title').textContent = langData.summaryTitle;
+    document.getElementById('lbl-work-title').textContent = langData.workTitle;
+    document.getElementById('lbl-skills-title').textContent = langData.skillsTitle;
+    document.getElementById('lbl-hobbies-title').textContent = langData.hobbiesTitle;
+    document.getElementById('lbl-social').textContent = langData.social;
+    document.getElementById('btn-download').textContent = langData.download;
+    document.getElementById('lang-toggler').textContent = langData.switchBtn;
+    
+    document.getElementById('t-sect-summary').textContent = langData.viewSummary;
+    document.getElementById('t-sect-history').textContent = langData.viewHistory;
+    document.getElementById('t-sect-skills').textContent = langData.viewSkills;
+    document.getElementById('t-sect-hobbies').textContent = langData.viewHobbies;
+    document.getElementById('t-sect-links').textContent = langData.viewLinks;
+    document.getElementById('t-sect-education').textContent = langData.viewEducation;
+
+    document.querySelectorAll('.target-exp-form').forEach(form => {
+        form.querySelector('button').textContent = langData.deleteBtn;
+        const labelsElements = form.querySelectorAll('label');
+        labelsElements[0].textContent = langData.compName;
+        labelsElements[1].textContent = langData.jobTitle;
+        labelsElements[2].textContent = langData.durationFrom;
+        labelsElements[3].textContent = langData.durationTo;
+        labelsElements[4].textContent = langData.acquiredSkills;
+    });
+
+    renderCV();
+}
+
+function renderCV() {
+    const name = document.getElementById('in-name').value;
+    const title = document.getElementById('in-title').value;
+    const email = document.getElementById('in-email').value;
+    const phone = document.getElementById('in-phone').value;
+    const locationVal = document.getElementById('in-location').value;
+    const dob = document.getElementById('in-dob').value;
+    const marital = document.getElementById('in-marital').value;
+    const gender = document.getElementById('in-gender').value;
+    const degree = document.getElementById('in-degree').value;
+    const univ = document.getElementById('in-univ').value;
+    const average = document.getElementById('in-average').value;
+    const gradYear = document.getElementById('in-grad-year').value;
+    const summary = document.getElementById('in-summary').value;
+    const skills = document.getElementById('in-skills').value;
+    const hobbies = document.getElementById('in-hobbies').value;
+    const link1 = document.getElementById('in-link1').value;
+    const link2 = document.getElementById('in-link2').value;
+
+    document.getElementById('out-name').textContent = name;
+    document.getElementById('out-title').textContent = title;
+    
+    const labels = dictionary[currentLang];
+    
+    toggleVisibility('out-email', 'div-email', email, (currentLang === 'ar' ? '<b>البريد:</b> ' : '<b>Email:</b> ') + email);
+    toggleVisibility('out-phone', 'div-phone', phone, (currentLang === 'ar' ? '<b>الهاتف:</b> ' : '<b>Phone:</b> ') + phone);
+    toggleVisibility('out-location', 'div-location', locationVal, (currentLang === 'ar' ? '<b>العنوان:</b> ' : '<b>Location:</b> ') + locationVal);
+    
+    toggleVisibility('out-dob', 'div-dob', dob, `<b>${labels.lblDob}</b>` + dob);
+    toggleVisibility('out-marital', 'div-marital', marital, `<b>${labels.lblMarital}</b>` + marital);
+    toggleVisibility('out-gender', 'div-gender', gender, `<b>${labels.lblGender}</b>` + gender);
+    
+    const extraContainer = document.getElementById('div-extra-fields');
+    if (dob.trim() === "" && marital.trim() === "" && gender.trim() === "") {
+        extraContainer.style.display = 'none';
+    } else {
+        extraContainer.style.display = 'flex';
+    }
+
+    const sectEducation = document.getElementById('sect-education');
+    if (degree.trim() === "" && univ.trim() === "") {
+        sectEducation.style.display = 'none';
+    } else {
+        sectEducation.style.display = 'block';
+        let degreeUnivText = degree;
+        if(degree.trim() !== "" && univ.trim() !== "") {
+            degreeUnivText += labels.connector + univ;
+        } else if(univ.trim() !== "") {
+            degreeUnivText = univ;
+        }
+        document.getElementById('out-degree-univ').textContent = degreeUnivText;
+        document.getElementById('div-average-display').innerHTML = average.trim() !== "" ? `<b>${labels.lblAvg}</b>${average}` : "";
+        document.getElementById('div-grad-display').innerHTML = gradYear.trim() !== "" ? `<b>${labels.lblGrad}</b>${gradYear}` : "";
+    }
+    
+    const outHistoryContainer = document.getElementById('out-history-container');
+    outHistoryContainer.innerHTML = '';
+    let totalValidExperiences = 0;
+
+    document.querySelectorAll('.target-exp-form').forEach(form => {
+        const comp = form.querySelector('.exp-company').value.trim();
+        const jt = form.querySelector('.exp-title').value.trim();
+        const from = form.querySelector('.exp-from').value.trim();
+        const to = form.querySelector('.exp-to').value.trim();
+        const sk = form.querySelector('.exp-skills').value.trim();
+
+        if (comp !== "" || jt !== "" || from !== "" || to !== "" || sk !== "") {
+            totalValidExperiences++;
+            
+            let timeString = "";
+            if (from !== "" || to !== "") {
+                timeString = `(${from} - ${to})`;
+            }
+
+            let headerText = jt;
+            if (jt !== "" && comp !== "") {
+                headerText += labels.connector + comp;
+            } else if (comp !== "") {
+                headerText = comp;
+            }
+
+            const expHtml = `
+                <div class="experience-item">
+                    <div class="d-flex justify-content-between align-items-baseline fw-bold">
+                        <span style="color: var(--primary-color);">${headerText}</span>
+                        <span class="small text-muted font-monospace">${timeString}</span>
+                    </div>
+                    ${sk ? `<div class="cv-text text-muted mt-1" style="font-size:12.5px;">${sk}</div>` : ''}
+                </div>
+            `;
+            outHistoryContainer.insertAdjacentHTML('beforeend', expHtml);
+        }
+    });
+
+    const sectHistory = document.getElementById('sect-history');
+    if(totalValidExperiences === 0) {
+        sectHistory.style.display = 'none';
+    } else {
+        sectHistory.style.display = 'block';
+    }
+
+    toggleVisibility('out-summary', 'sect-summary', summary, summary);
+    toggleVisibility('out-skills', 'sect-skills', skills, skills);
+    toggleVisibility('out-hobbies', 'sect-hobbies', hobbies, hobbies);
+    
+    toggleVisibility('out-link1', 'div-link1', link1, '<b>LinkedIn:</b> ' + link1);
+    toggleVisibility('out-link2', 'div-link2', link2, '<b>GitHub:</b> ' + link2);
+    
+    if(!link1 && !link2) {
+        document.getElementById('sect-links').style.display = 'none';
+    } else {
+        document.getElementById('sect-links').style.display = 'block';
+    }
+}
+
+function toggleVisibility(id, divId, value, textContent) {
+    const element = document.getElementById(id);
+    const container = document.getElementById(divId);
+    if(!value || value.trim() === "") {
+        container.style.display = 'none';
+    } else {
+        container.style.display = 'block';
+        element.innerHTML = textContent;
+    }
+}
+
+function exportPDF() {
+    const candidateName = document.getElementById('in-name').value.trim().replace(/\s+/g, '_') || 'Candidate';
+    const originalTitle = document.title;
+    document.title = `${candidateName}_CV`;
+    window.print();
+    document.title = originalTitle;
+}
+
+// تشغيل المحرك لأول مرة
+updateEngine();
+renderCV();
+</script>
+</body>
+</html>
