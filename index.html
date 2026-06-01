@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>40-in-1 Professional CV Builder</title>
+    <title>EasyCV-Maker tools developed by OsamaShawabkeh</title>
     <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" id="bootstrap-rtl">
     <!-- خطوط ويب احترافية متصلة تماماً للعربية والإنجليزية -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&family=Fira+Code:wght@400;500&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* تعريف متغيرات الألوان الـ 10 الاحترافية */
+        /* تعريف متغيرات الألوان الاحترافية */
         :root {
             --primary-color: #0056b3;
             --text-color: #2b2b2b;
@@ -45,7 +45,7 @@
         .cv-section-title { font-weight: 700; margin-top: 20px; margin-bottom: 10px; padding-bottom: 5px; font-size: 15px; text-transform: uppercase; }
         .experience-item { margin-bottom: 15px; }
 
-        /* ==================== أنماط الهياكل الأربعة (4 Structural Layouts) ==================== */
+        /* ==================== أنماط الهياكل الـ 12 (12 Structural Layouts) ==================== */
         
         /* 1. الهيكل الكلاسيكي (Classic Layout) */
         .struct-classic .cv-header { border-bottom: 3px var(--border-style) var(--primary-color); padding-bottom: 12px; margin-bottom: 18px; }
@@ -58,7 +58,7 @@
         .struct-modern h1 { font-weight: 700; font-size: 28px; }
         .struct-modern .cv-section-title { color: var(--primary-color); border-inline-start: 5px solid var(--primary-color); padding-inline-start: 10px; }
 
-        /* 3. الهيكل التنفيذي الفخم بعد المعالجة الجذريّة لتصدير الألوان */
+        /* 3. الهيكل التنفيذي الفخم */
         .struct-executive .cv-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid var(--primary-color); padding-bottom: 15px; }
         .struct-executive h1 { color: var(--primary-color); font-weight: 800; letter-spacing: 0.5px; }
         .struct-executive .cv-section-title { 
@@ -66,7 +66,7 @@
             background-color: var(--primary-color) !important; 
             padding: 6px 12px; 
             border-radius: 4px;
-            -webkit-print-color-adjust: exact; /* إجبار المتصفح على طباعة لون الخلفية */
+            -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
 
@@ -75,6 +75,50 @@
         .struct-academic .cv-header { text-align: center; border-bottom: 2px double var(--primary-color); padding-bottom: 8px; margin-bottom: 20px; }
         .struct-academic h1 { color: #000000; font-weight: 700; }
         .struct-academic .cv-section-title { text-align: center; color: var(--primary-color); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+
+        /* 5. الهيكل التقني البسيط (Minimalist Tech) */
+        .struct-mintech { font-family: 'Fira Code', 'Tajawal', monospace; }
+        .struct-mintech .cv-header { border-inline-start: 4px solid var(--primary-color); padding-inline-start: 15px; margin-bottom: 20px; }
+        .struct-mintech h1 { color: #0f172a; font-weight: 700; font-size: 24px; }
+        .struct-mintech .cv-section-title { color: var(--primary-color); font-size: 14px; font-weight: bold; background: #f1f5f9; padding: 4px 8px; }
+
+        /* 6. الهيكل الهندسي المتوازن (Geometric Grid) */
+        .struct-geometric .cv-header { text-align: inline-start; margin-bottom: 25px; }
+        .struct-geometric h1 { font-weight: 800; text-transform: uppercase; color: #1e293b; border-bottom: 4px solid var(--primary-color); display: inline-block; padding-bottom: 5px; }
+        .struct-geometric .cv-section-title { color: #0f172a; border-bottom: 2px solid var(--primary-color); font-weight: 800; position: relative; }
+
+        /* 7. الهيكل الريادي الحديث (Startup Sleek) */
+        .struct-startup .cv-header { text-align: center; background: #fafafa; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; margin-bottom: 25px; }
+        .struct-startup h1 { color: var(--primary-color); font-weight: 700; }
+        .struct-startup .cv-section-title { color: var(--primary-color); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 13px; border-bottom: 1px dashed var(--primary-color); }
+
+        /* 8. الهيكل الاحترافي الهجين (Hybrid Corporate) */
+        .struct-hybrid .cv-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
+        .struct-hybrid h1 { color: var(--primary-color); font-weight: 800; margin: 0; }
+        .struct-hybrid .cv-section-title { color: #1e293b; font-weight: 700; border-inline-start: 6px solid var(--primary-color); padding-inline-start: 8px; background: #f8fafc; padding-top: 4px; padding-bottom: 4px; }
+
+        /* 9. الهيكل الإبداعي المنظم (Creative Structured) */
+        .struct-creative h1 { color: var(--primary-color); font-weight: 800; font-size: 30px; margin-bottom: 5px; }
+        .struct-creative .cv-header { margin-bottom: 25px; }
+        .struct-creative .cv-section-title { color: #ffffff !important; background: linear-gradient(90deg, var(--primary-color), #64748b) !important; padding: 5px 10px; border-radius: 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+        /* 10. الهيكل الأنيق الرفيع (Elegant Slim) */
+        .struct-elegant { font-family: 'Playfair Display', 'Tajawal', serif; }
+        .struct-elegant h1 { text-align: center; font-style: italic; font-weight: bold; color: var(--primary-color); }
+        .struct-elegant .cv-header { border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 20px; text-align: center; }
+        .struct-elegant .cv-section-title { text-align: center; font-weight: 500; text-transform: uppercase; color: #334155; border-top: 1px solid #334155; border-bottom: 1px solid #334155; padding: 3px 0; }
+
+        /* 11. الهيكل الموجه للشركات (Corporate Solid) */
+        .struct-corporate .cv-header { border-bottom: 5px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 20px; }
+        .struct-corporate h1 { font-weight: 800; color: #0f172a; }
+        .struct-corporate .cv-section-title { color: #ffffff !important; background-color: #1e293b !important; border-inline-start: 8px solid var(--primary-color); padding: 5px 10px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+        /* 12. الهيكل المدمج الفعّال (Compact High-Density) */
+        .struct-compact .cv-header { margin-bottom: 15px; border-bottom: 1px solid var(--primary-color); padding-bottom: 5px; }
+        .struct-compact h1 { font-size: 22px; font-weight: 700; color: var(--primary-color); }
+        .struct-compact .cv-section-title { font-size: 13px; color: #0f172a; font-weight: bold; border-bottom: 2px solid #cbd5e1; margin-top: 12px; margin-bottom: 6px; }
+        .struct-compact .cv-text { font-size: 12px; line-height: 1.4; }
+        .struct-compact .experience-item { margin-bottom: 8px; }
 
         /* ==================== إعدادات المطبوعات الاحترافية ==================== */
         @media print {
@@ -90,18 +134,20 @@
                 box-shadow: none !important;
                 margin: 0 !important;
                 background-color: #ffffff !important;
-                -webkit-print-color-adjust: exact; /* لضمان ثبات ألوان المطبوعات بالكامل */
-                print-color-adjust: exact;
-            }
-            /* إجبار عناوين الهيكل التنفيذي على الاحتفاظ بالخلفية الملونة والنص الأبيض أثناء الطباعة */
-            .struct-executive .cv-section-title {
-                background-color: var(--primary-color) !important;
-                color: #ffffff !important;
-                padding: 6px 12px !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            /* إجبار الهيكل العصري على الاحتفاظ بخلفية الهيدر الملونة */
+            .struct-executive .cv-section-title,
+            .struct-creative .cv-section-title,
+            .struct-corporate .cv-section-title {
+                background-color: var(--primary-color) !important;
+                color: #ffffff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .struct-corporate .cv-section-title {
+                background-color: #1e293b !important;
+            }
             .struct-modern .cv-header {
                 background-color: var(--primary-color) !important;
                 color: #ffffff !important;
@@ -124,41 +170,26 @@
                 
                 <!-- التبديل اللغوي -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <span class="fw-bold text-muted">Language / اللغة:</span>
+                    <span class="fw-bold text-muted" id="lbl-lang-prompt">Language / اللغة:</span>
                     <button class="btn btn-outline-primary btn-sm fw-bold" id="lang-toggler" onclick="toggleLanguage()">Switch to English</button>
                 </div>
 
-                <!-- مصفوفة توليد الـ 40 نموذجاً -->
+                <!-- مصفوفة توليد النماذج الذكية بعد التوسعة والترجمة المضافة -->
                 <div class="card p-3 mb-3 border-0 bg-light shadow-sm">
-                    <h5 class="fw-bold text-success mb-3">🎨 محرك القوالب الـ 40 الذكي (ATS Approved)</h5>
+                    <h5 class="fw-bold text-success mb-3" id="lbl-engine-title">🎨 محرك القوالب المطور (ATS Approved)</h5>
                     <div class="row g-2">
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold">1. الهيكل والنمط المعماري:</label>
+                            <label class="form-label small fw-bold" id="lbl-select-layout">1. الهيكل والنمط المعماري:</label>
                             <select id="select-layout" class="form-select form-select-sm" onchange="updateEngine()">
-                                <option value="classic">الهيكل الكلاسيكي المنظم</option>
-                                <option value="modern">الهيكل العصري الجريء</option>
-                                <option value="executive">الهيكل التنفيذي الفخم ✨</option>
-                                <option value="academic">الهيكل الأكاديمي والتقني</option>
+                                <!-- يتم ملؤها برمجياً عبر الجافاسكريبت لدعم التبديل اللغوي المطلق -->
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small fw-bold">2. لوحة الألوان الاحترافية:</label>
+                            <label class="form-label small fw-bold" id="lbl-select-color">2. لوحة الألوان الاحترافية:</label>
                             <select id="select-color" class="form-select form-select-sm" onchange="updateEngine()">
-                                <option value="#0f172a">1. الأسود الفحمي (Charcoal)</option>
-                                <option value="#1e3a8a" selected>2. الكحلي الملكي (Royal Blue)</option>
-                                <option value="#047857">3. الأخضر الزمردي (Emerald)</option>
-                                <option value="#7c2d12">4. البرونزي الدافئ (Bronze)</option>
-                                <option value="#581c87">5. البنفسجي الإبداعي (Purple)</option>
-                                <option value="#4338ca">6. النيلي المؤسسي (Indigo)</option>
-                                <option value="#be123c">7. العنابي الفاخر (Burgundy)</option>
-                                <option value="#0369a1">8. الأزرق السماوي الهادئ (Sky)</option>
-                                <option value="#334155">9. الرمادي الإستراتيجي (Slate)</option>
-                                <option value="#15803d">10. الأخضر الرقمي (Forest)</option>
+                                <!-- يتم ملؤها برمجياً عبر الجافاسكريبت لدعم التبديل اللغوي المطلق -->
                             </select>
                         </div>
-                    </div>
-                    <div class="mt-2 text-center small text-muted">
-                        مزيج الهياكل والألوان يمنحك <span class="badge bg-success">40 تصميماً مختلفاً</span> متوافقاً تماماً مع المعايير الأمنية وأنظمة الفرز.
                     </div>
                 </div>
                 
@@ -234,7 +265,7 @@
                 <div class="card p-3 mb-3 border-0 bg-light">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h5 class="fw-bold text-secondary m-0" id="lbl-work-title">💼 الخبرة المهنية (اختياري)</h5>
-                        <button class="btn btn-primary btn-sm fw-bold" onclick="addExperienceField()">➕ إضافة خبرة جديدة</button>
+                        <button class="btn btn-primary btn-sm fw-bold" id="btn-add-exp" onclick="addExperienceField()">➕ إضافة خبرة جديدة</button>
                     </div>
                     <div id="experience-fields-container"></div>
                 </div>
@@ -249,6 +280,20 @@
                         <div class="col-md-6">
                             <h5 class="fw-bold text-secondary mb-2" id="lbl-hobbies-title">🎯 الهوايات</h5>
                             <textarea id="in-hobbies" class="form-control form-control-sm" rows="3" placeholder="• هواية 1&#10;• هواية 2" oninput="renderCV()"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- اللغات والشهادات الاحترافية (تحديث اختياري) -->
+                <div class="card p-3 mb-3 border-0 bg-light">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold text-secondary mb-2" id="lbl-languages-title">🗣️ اللغات (اختياري)</h5>
+                            <textarea id="in-languages" class="form-control form-control-sm" rows="3" placeholder="• العربية (اللغة الأم)&#10;• الإنجليزية (متقدم)" oninput="renderCV()"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold text-secondary mb-2" id="lbl-certs-title">📜 الشهادات الاحترافية (اختياري)</h5>
+                            <textarea id="in-certs" class="form-control form-control-sm" rows="3" placeholder="• شهادة CCNA&#10;• شهادة PMP" oninput="renderCV()"></textarea>
                         </div>
                     </div>
                 </div>
@@ -325,6 +370,18 @@
                     </div>
                 </div>
 
+                <!-- اللغات والشهادات في المعاينة -->
+                <div class="row">
+                    <div class="col-6" id="sect-languages" style="display: none;">
+                        <div class="cv-section-title" id="t-sect-languages">اللغات</div>
+                        <div id="out-languages" class="cv-text"></div>
+                    </div>
+                    <div class="col-6" id="sect-certs" style="display: none;">
+                        <div class="cv-section-title" id="t-sect-certs">الشهادات الاحترافية</div>
+                        <div id="out-certs" class="cv-text"></div>
+                    </div>
+                </div>
+
                 <div id="sect-links" style="display: none;">
                     <div class="cv-section-title" id="t-sect-links">الروابط والشبكات الرقمية</div>
                     <div class="row small">
@@ -343,43 +400,133 @@
 let currentLang = 'ar';
 let experienceCount = 0;
 
+// مصفوفة البيانات المترجمة بالكامل لجميع عناصر النظام والقوائم
 const dictionary = {
     ar: {
+        langPrompt: "Language / اللغة:",
+        engineTitle: "🎨 محرك القوالب المطور (ATS Approved)",
+        selectLayout: "1. الهيكل والنمط المعماري:",
+        selectColor: "2. لوحة الألوان الاحترافية:",
         personal: "👤 التفاصيل الشخصية", name: "الاسم الكامل", title: "المسمى الوظيفي", email: "البريد الإلكتروني", phone: "رقم الهاتف", location: "العنوان",
         dob: "تاريخ الميلاد (اختياري)", marital: "الحالة الاجتماعية (اختياري)", gender: "الجنس (اختياري)",
         educationTitle: "🎓 التعليم الأكاديمي", degree: "الدرجة العلمية والتخصص", univ: "اسم الجامعة", average: "المعدل", gradYear: "سنة التخرج",
-        summaryTitle: "📄 الملخص المهني", workTitle: "💼 الخبرة المهنية (اختياري)", skillsTitle: "🛠️ المهارات", hobbiesTitle: "🎯 الهوايات", social: "🌐 الروابط الرقمية",
+        summaryTitle: "📄 الملخص المهني", workTitle: "💼 الخبرة المهنية (اختياري)", btnAddExp: "➕ إضافة خبرة جديدة", skillsTitle: "🛠️ المهارات", hobbiesTitle: "🎯 الهوايات", social: "🌐 الروابط الرقمية",
+        languagesTitle: "🗣️ اللغات (اختياري)", certsTitle: "📜 الشهادات الاحترافية (اختياري)",
         download: "📥 حفظ كـ PDF (نصوص متصلة وصافية لـ ATS)", switchBtn: "Switch to English",
         viewSummary: "الملخص المهني", viewHistory: "الخبرة المهنية والتاريخ الوظيفي", viewSkills: "المهارات", viewHobbies: "الهوايات والاهتمامات", viewLinks: "الروابط والشبكات الرقمية", viewEducation: "التعليم الأكاديمي",
+        viewLanguages: "اللغات", viewCerts: "الشهادات الاحترافية",
         lblDob: "تاريخ الميلاد: ", lblMarital: "الحالة الاجتماعية: ", lblGender: "الجنس: ", lblAvg: "المعدل: ", lblGrad: "سنة التخرج: ",
         compName: "اسم الشركة", jobTitle: "المسمى الوظيفي", durationFrom: "الفترة من", durationTo: "الفترة إلى", acquiredSkills: "الخبرات والمهام المكتسبة", deleteBtn: "حذف",
-        connector: " في "
+        connector: " في ",
+        layouts: [
+            { value: "classic", text: "1. الهيكل الكلاسيكي المنظم" },
+            { value: "modern", text: "2. الهيكل العصري الجريء" },
+            { value: "executive", text: "3. الهيكل التنفيذي الفخم ✨" },
+            { value: "academic", text: "4. الهيكل الأكاديمي والتقني" },
+            { value: "mintech", text: "5. الهيكل التقني البسيط (Minimalist Tech)" },
+            { value: "geometric", text: "6. الهيكل الهندسي المتوازن (Geometric Grid)" },
+            { value: "startup", text: "7. الهيكل الريادي الحديث (Startup Sleek)" },
+            { value: "hybrid", text: "8. الهيكل الاحترافي الهجين (Hybrid Corporate)" },
+            { value: "creative", text: "9. الهيكل الإبداعي المنظم (Creative Structured)" },
+            { value: "elegant", text: "10. الهيكل الأنيق الرفيع (Elegant Slim)" },
+            { value: "corporate", text: "11. الهيكل الموجه للشركات (Corporate Solid)" },
+            { value: "compact", text: "12. الهيكل المدمج الفعّال (Compact High-Density)" }
+        ],
+        colors: [
+            { value: "#0f172a", text: "1. الأسود الفحمي (Charcoal)" },
+            { value: "#1e3a8a", text: "2. الكحلي الملكي (Royal Blue)" },
+            { value: "#047857", text: "3. الأخضر الزمردي (Emerald)" },
+            { value: "#7c2d12", text: "4. البرونزي الدافئ (Bronze)" },
+            { value: "#581c87", text: "5. البنفسجي الإبداعي (Purple)" },
+            { value: "#4338ca", text: "6. النيلي المؤسسي (Indigo)" },
+            { value: "#be123c", text: "7. العنابي الفاخر (Burgundy)" },
+            { value: "#0369a1", text: "8. الأزرق السماوي الهادئ (Sky)" },
+            { value: "#334155", text: "9. الرمادي الإستراتيجي (Slate)" },
+            { value: "#15803d", text: "10. الأخضر الرقمي (Forest)" }
+        ]
     },
     en: {
+        langPrompt: "Language / اللغة:",
+        engineTitle: "🎨 Advanced Template Engine (ATS Approved)",
+        selectLayout: "1. Structure & Architectural Layout:",
+        selectColor: "2. Professional Color Palette:",
         personal: "👤 Personal Details", name: "Full Name", title: "Job Title", email: "Email Address", phone: "Phone Number", location: "Location",
         dob: "Date of Birth (Optional)", marital: "Marital Status (Optional)", gender: "Gender (Optional)",
         educationTitle: "🎓 Education", degree: "Degree & Major", univ: "University Name", average: "Average / GPA", gradYear: "Graduation Year",
-        summaryTitle: "📄 Professional Summary", workTitle: "💼 Work History (Optional)", skillsTitle: "🛠️ Skills", hobbiesTitle: "🎯 Hobbies", social: "🌐 Digital Links",
+        summaryTitle: "📄 Professional Summary", workTitle: "💼 Work History (Optional)", btnAddExp: "➕ Add New Experience", skillsTitle: "🛠️ Skills", hobbiesTitle: "🎯 Hobbies", social: "🌐 Digital Links",
+        languagesTitle: "🗣️ Languages (Optional)", certsTitle: "📜 Certifications (Optional)",
         download: "📥 Save as PDF (100% Pure Text for ATS)", switchBtn: "التحويل للغة العربية",
         viewSummary: "Professional Summary", viewHistory: "Work History & Experience", viewSkills: "Skills", viewHobbies: "Hobbies & Interests", viewLinks: "Digital Networks & Links", viewEducation: "Education",
+        viewLanguages: "Languages", viewCerts: "Certifications",
         lblDob: "Date of Birth: ", lblMarital: "Marital Status: ", lblGender: "Gender: ", lblAvg: "GPA/Average: ", lblGrad: "Graduation Year: ",
         compName: "Company Name", jobTitle: "Job Title", durationFrom: "From", durationTo: "To", acquiredSkills: "Acquired Skills & Responsibilities", deleteBtn: "Delete",
-        connector: " at "
+        connector: " at ",
+        layouts: [
+            { value: "classic", text: "1. Structured Classic Layout" },
+            { value: "modern", text: "2. Bold Modern Layout" },
+            { value: "executive", text: "3. Premium Executive Layout ✨" },
+            { value: "academic", text: "4. Academic & Technical Layout" },
+            { value: "mintech", text: "5. Minimalist Tech Layout" },
+            { value: "geometric", text: "6. Geometric Grid Layout" },
+            { value: "startup", text: "7. Startup Sleek Layout" },
+            { value: "hybrid", text: "8. Hybrid Corporate Layout" },
+            { value: "creative", text: "9. Creative Structured Layout" },
+            { value: "elegant", text: "10. Elegant Slim Layout" },
+            { value: "corporate", text: "11. Corporate Solid Layout" },
+            { value: "compact", text: "12. Compact High-Density Layout" }
+        ],
+        colors: [
+            { value: "#0f172a", text: "1. Charcoal Black" },
+            { value: "#1e3a8a", text: "2. Royal Blue" },
+            { value: "#047857", text: "3. Emerald Green" },
+            { value: "#7c2d12", text: "4. Warm Bronze" },
+            { value: "#581c87", text: "5. Creative Purple" },
+            { value: "#4338ca", text: "6. Corporate Indigo" },
+            { value: "#be123c", text: "7. Luxury Burgundy" },
+            { value: "#0369a1", text: "8. Serene Sky Blue" },
+            { value: "#334155", text: "9. Strategic Slate" },
+            { value: "#15803d", text: "10. Digital Forest Green" }
+        ]
     }
 };
+
+function populateDropdowns() {
+    const layoutSelect = document.getElementById('select-layout');
+    const colorSelect = document.getElementById('select-color');
+    
+    // حفظ الخيارات المحددة حالياً لمنع ضياعها أثناء التبديل اللغوي
+    const currentSelectedLayout = layoutSelect.value || "classic";
+    const currentSelectedColor = colorSelect.value || "#1e3a8a";
+    
+    layoutSelect.innerHTML = "";
+    colorSelect.innerHTML = "";
+    
+    const langData = dictionary[currentLang];
+    
+    langData.layouts.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.value;
+        opt.textContent = item.text;
+        if(item.value === currentSelectedLayout) opt.selected = true;
+        layoutSelect.appendChild(opt);
+    });
+    
+    langData.colors.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.value;
+        opt.textContent = item.text;
+        if(item.value === currentSelectedColor) opt.selected = true;
+        colorSelect.appendChild(opt);
+    });
+}
 
 function updateEngine() {
     const layout = document.getElementById('select-layout').value;
     const color = document.getElementById('select-color').value;
     const cvSheet = document.getElementById('cv-sheet');
     
-    // تحديث فئة الهيكل البنائي
     cvSheet.className = "a4-page struct-" + layout;
-    
-    // زرع الألوان ديناميكياً داخل المتغيرات
     document.documentElement.style.setProperty('--primary-color', color);
-    
-    // إعادة البناء لضمان تطبيق الألوان فوراً
     renderCV();
 }
 
@@ -443,6 +590,14 @@ function toggleLanguage() {
     }
     
     const langData = dictionary[currentLang];
+    
+    // تحديث ترويسة محرك القوالب والقوائم فوراً
+    document.getElementById('lbl-lang-prompt').textContent = langData.langPrompt;
+    document.getElementById('lbl-engine-title').textContent = langData.engineTitle;
+    document.getElementById('lbl-select-layout').textContent = langData.selectLayout;
+    document.getElementById('lbl-select-color').textContent = langData.selectColor;
+    populateDropdowns();
+
     document.getElementById('lbl-personal').textContent = langData.personal;
     document.getElementById('lbl-name').textContent = langData.name;
     document.getElementById('lbl-title').textContent = langData.title;
@@ -461,8 +616,11 @@ function toggleLanguage() {
 
     document.getElementById('lbl-summary-title').textContent = langData.summaryTitle;
     document.getElementById('lbl-work-title').textContent = langData.workTitle;
+    document.getElementById('btn-add-exp').textContent = langData.btnAddExp;
     document.getElementById('lbl-skills-title').textContent = langData.skillsTitle;
     document.getElementById('lbl-hobbies-title').textContent = langData.hobbiesTitle;
+    document.getElementById('lbl-languages-title').textContent = langData.languagesTitle;
+    document.getElementById('lbl-certs-title').textContent = langData.certsTitle;
     document.getElementById('lbl-social').textContent = langData.social;
     document.getElementById('btn-download').textContent = langData.download;
     document.getElementById('lang-toggler').textContent = langData.switchBtn;
@@ -471,6 +629,8 @@ function toggleLanguage() {
     document.getElementById('t-sect-history').textContent = langData.viewHistory;
     document.getElementById('t-sect-skills').textContent = langData.viewSkills;
     document.getElementById('t-sect-hobbies').textContent = langData.viewHobbies;
+    document.getElementById('t-sect-languages').textContent = langData.viewLanguages;
+    document.getElementById('t-sect-certs').textContent = langData.viewCerts;
     document.getElementById('t-sect-links').textContent = langData.viewLinks;
     document.getElementById('t-sect-education').textContent = langData.viewEducation;
 
@@ -484,7 +644,7 @@ function toggleLanguage() {
         labelsElements[4].textContent = langData.acquiredSkills;
     });
 
-    renderCV();
+    updateEngine();
 }
 
 function renderCV() {
@@ -503,6 +663,8 @@ function renderCV() {
     const summary = document.getElementById('in-summary').value;
     const skills = document.getElementById('in-skills').value;
     const hobbies = document.getElementById('in-hobbies').value;
+    const languages = document.getElementById('in-languages').value;
+    const certs = document.getElementById('in-certs').value;
     const link1 = document.getElementById('in-link1').value;
     const link2 = document.getElementById('in-link2').value;
 
@@ -591,6 +753,8 @@ function renderCV() {
     toggleVisibility('out-summary', 'sect-summary', summary, summary);
     toggleVisibility('out-skills', 'sect-skills', skills, skills);
     toggleVisibility('out-hobbies', 'sect-hobbies', hobbies, hobbies);
+    toggleVisibility('out-languages', 'sect-languages', languages, languages);
+    toggleVisibility('out-certs', 'sect-certs', certs, certs);
     
     toggleVisibility('out-link1', 'div-link1', link1, '<b>LinkedIn:</b> ' + link1);
     toggleVisibility('out-link2', 'div-link2', link2, '<b>GitHub:</b> ' + link2);
@@ -621,7 +785,8 @@ function exportPDF() {
     document.title = originalTitle;
 }
 
-// تشغيل المحرك لأول مرة
+// بناء وتعبئة عناصر القوائم من المصفوفات لأول مرة
+populateDropdowns();
 updateEngine();
 renderCV();
 </script>
